@@ -135,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         ingresarNombre.isEnabled = true
         finalizar.isEnabled = false
         SiguienteEstudiante.isEnabled = false
+        guardar.isEnabled = true
     }
 
     fun actualizarProgreso(porcentaje: Int) {
@@ -145,7 +146,6 @@ class MainActivity : AppCompatActivity() {
             guardar.isEnabled = false
             finalizar.isEnabled = true
             SiguienteEstudiante.isEnabled = true
-            guardar.isEnabled = true
 
         }
     }
