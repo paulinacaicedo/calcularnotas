@@ -3,6 +3,7 @@ package com.isabel.caicedo.calcularnotas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -16,8 +17,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var calcularnotas: TextView
-    private lateinit var guardar: Button
-    private lateinit var ingresarNombre: TextView
+    private lateinit var finalizar: Button
+    private lateinit var ingresarNombre: EditText
     private lateinit var ingresarNota: EditText
     private lateinit var ingresarPorcentaje: EditText
     private lateinit var progreso: ProgressBar
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var SiguienteEstudiante: Button
     private lateinit var promedio: TextView
     private lateinit var NotaFinal: TextView
+    private lateinit var guardar : Button
 
 
     //Variable global para validar el porcentaje
@@ -39,18 +41,34 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializamos la variable
 
-        guardar = findViewById(R.id.guardar)
+        finalizar = findViewById(R.id.finalizar)
         ingresarNombre = findViewById(R.id.ingresarNombre)
         ingresarNota = findViewById(R.id.ingresarNota)
-        ingresarPorcentaje = findViewById(R.id.ingresarPorcentaje)
+        ingresarPorcentaje = findViewById(R.id.ingrearPorcentaje)
         progreso = findViewById(R.id.progreso)
         calcularnotas = findViewById(R.id.calcularnotas)
         SiguienteEstudiante = findViewById(R.id.SiguienteEstudiante)
         promedio = findViewById(R.id.promedio)
         NotaFinal = findViewById(R.id.NotaFinal)
+        guardar = findViewById(R.id.guardar)
 
+
+        SiguienteEstudiante.setOnClickListener(){
+            nuevoEstudiante()
+        }
+
+
+        finalizar.setOnClickListener(){
+
+
+            NotaFinal.text = "Nota Final : " + EstudianteActual.notaFinal()
+
+            promedio.text = "promedio" + EstudianteActual.calcularPromedio()
+        }
         //---AND---
         guardar.setOnClickListener {
+
+
 
 
             val nota = (ingresarNota.text.toString())
@@ -88,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
                 actualizarProgreso(porcentajeAcumulado)
 
-                Toast.makeText(this, "la nota ingresada es correcta", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "se ingreso la nota correctamente", Toast.LENGTH_LONG).show()
 
 
             } else {
@@ -104,12 +122,29 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    fun nuevoEstudiante (){
+        ingresarNombre.text.clear()
+        progreso.progress = 0
+        porcentajeAcumulado = 0
+        ingresarNota.text.clear()
+        ingresarPorcentaje.text.clear()
+        promedio.text = ""
+        NotaFinal.text = ""
+
+        ingresarNombre.isEnabled = true
+        finalizar.isEnable = false
+        SiguienteEstudiante.isEnabled = false
+    }
+
     fun actualizarProgreso(porcentaje: Int) {
         progreso.progress = porcentaje
 
 
         if (porcentaje >= 100) {
-            guardar.isEnabled = true
+            guardar.isEnabled = false
+            finalizar.isEnabled = true
+            SiguienteEstudiante.isEnabled = true
+
         }
     }
 
