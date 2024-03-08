@@ -145,6 +145,7 @@ class MainActivity : AppCompatActivity() {
             guardar.isEnabled = false
             finalizar.isEnabled = true
             SiguienteEstudiante.isEnabled = true
+            guardar.isEnabled = true
 
         }
     }
