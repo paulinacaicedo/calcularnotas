@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     val listaNota: MutableList<Double> = mutableListOf()
     val listaporcentaje: MutableList<Int> = mutableListOf()
+    val listaEstudiante : MutableList<Estudiante> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,8 @@ class MainActivity : AppCompatActivity() {
             NotaFinal.text = "Nota Final : " + EstudianteActual.notaFinal()
 
             promedio.text = "promedio" + EstudianteActual.calcularPromedio()
+
+            SiguienteEstudiante.isEnabled = true
         }
         //---AND---
         guardar.setOnClickListener {
@@ -91,10 +94,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-            if (validarNota(nota.toDouble()) && validarPorcentaje(porcentaje.toInt()) && validarNombre(
-                    nombre
-                )
-            ) {
+            if (validarNota(nota.toDouble()) && validarPorcentaje(porcentaje.toInt()) && validarNombre(nombre)) {
                 listaNota.add(nota.toDouble())
 
                 listaporcentaje.add(porcentaje.toInt())
@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity() {
                 actualizarProgreso(porcentajeAcumulado)
 
                 Toast.makeText(this, "se ingreso la nota correctamente", Toast.LENGTH_LONG).show()
-
 
             } else {
 
@@ -130,9 +129,11 @@ class MainActivity : AppCompatActivity() {
         ingresarPorcentaje.text.clear()
         promedio.text = ""
         NotaFinal.text = ""
+        listaNota.clear()
+        listaporcentaje.clear()
 
         ingresarNombre.isEnabled = true
-        finalizar.isEnable = false
+        finalizar.isEnabled = false
         SiguienteEstudiante.isEnabled = false
     }
 
@@ -166,6 +167,7 @@ class MainActivity : AppCompatActivity() {
         var nombre: String = " "
         var notas: List<Double> = listOf()
         var porcentajes: List<Int> = listOf()
+        var Estudiante : List<Estudiante> = listOf()
 
 
         fun calcularPromedio(): Double {
